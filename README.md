@@ -37,5 +37,10 @@
     id
   }
 }
+<<<<<<< HEAD
 `
 ![alt text]()
+=======
+
+![alt text](https://github.com/Martin-J-Larre/desafio-reformar-para-usar-graphql/blob/main/assets/gr-2.JPG?raw=true)
+>>>>>>> 1a67a41c3b0846ca943a2e37898c1d3a9278f003
