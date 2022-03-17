@@ -18,4 +18,4 @@
   }
 }
 
-![alt text](https://github.com/Martin-J-Larre/desafio-reformar-para-usar-graphql/blob/main/assets/gr-1.JPG?raw=true)
+![alt text](https://github.com/Martin-J-Larre/desafio-reformar-para-usar-graphql/blob/main/assets/gr-2.JPG?raw=true)
