@@ -22,7 +22,7 @@
 
 - #### Update Products
   - `mutation{
-        updateProduct(id: 1, data:{title: "TestUpdate3", price: "3000", stock: 30}) {
+        updateProduct(id: 1, data:{title: " ", price: " ", stock: 30}) {
             title
             price
             stock
@@ -34,7 +34,7 @@
 
 - #### Delete Products
   - `mutation{
-	    deleteProduct(id: 9){
+	    deleteProduct(id: 7){
         id
         }
     }`
