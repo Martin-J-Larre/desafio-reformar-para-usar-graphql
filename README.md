@@ -8,12 +8,5 @@
     stock
   }
 }`
-![alt text](https://github.com/Martin-J-Larre/desafio-16-heroku/blob/main/assets/heroku-1.JPG?raw=true)
 
-- #### add Products
-  - mutation{
-	addProduct(data: {title: "TestD", price:"400", stock:10}){
-    id
-  }
-}
-![alt text](https://github.com/Martin-J-Larre/desafio-16-heroku/blob/main/assets/heroku-1.JPG?raw=true)
+![alt text](https://github.com/Martin-J-Larre/desafio-reformar-para-usar-graphql/blob/main/assets/gr-1.JPG?raw=true)
