@@ -30,6 +30,7 @@
         }
     }`
 
+<<<<<<< HEAD
 ![alt text]()
 
 - #### Delete Products
@@ -40,3 +41,19 @@
     }`
     
 ![alt text]()
+=======
+![alt text](https://github.com/Martin-J-Larre/desafio-reformar-para-usar-graphql/blob/main/assets/gr-3.JPG?raw=true)
+- #### Delete Products
+  - `mutation{
+	deleteProduct(id: 9){
+    id
+  }
+}
+<<<<<<< HEAD
+`
+![alt text]()
+=======
+
+![alt text](https://github.com/Martin-J-Larre/desafio-reformar-para-usar-graphql/blob/main/assets/gr-4.JPG?raw=true)
+>>>>>>> 1a67a41c3b0846ca943a2e37898c1d3a9278f003
+>>>>>>> b202bdc73f44baafabdb59fcf1ea0b2aa99ce293
