@@ -6,74 +6,82 @@ class ProductController {
     constructor() {
         this.pathArchivoDB = pathArchivoItems;
     }
-    // add one
-    add(item, callback) {
-        let _item = item;
-        this.getAll((err, items) => {
-            if (err) {
-                callback(err);
-            }
-            items.length === 0 ? (_item.id = 1) : (_item.id = items.length + 1);
-            items.push(_item);
-            this.saveChange(items, (err) => {
-                err ? callback(err) : callback(null, _item);
-            });
-        });
+    
+    async save(product) {
+        const products = await this.getAll();
+        console.log(products);
+        let newId;
+        if (products.length == 0) {
+            newId = 1;
+            console.log(newId);
+        } else {
+            newId = products[products.length - 1].id + 1;
+            console.log("El Id asignado es:", newId);
+        }
+
+        const newProduct = {
+            ...product,
+            id: newId
+        };
+        products.push(newProduct);
+
+        try {
+            await fs.promises.writeFile(
+                this.pathArchivoDB,
+                JSON.stringify(products, null, 2),
+                "utf-8"
+            );
+            return newId;
+        } catch (error) {
+            throw new Error(`Error en fs.writeFile:${error}`);
+        }
     }
-    // getAll    
-    getAll(callback) {
-        return fs.readFile(this.pathArchivoDB, "utf8", (err, items) => {
-            err ? callback(err) : callback(null, JSON.parse(items));
-        });
-    }
-    // getone
-    getOne(id, callback) {
-        this.getAll((err, items) => {
-            if (err) {
-                callback(err);
-            } else {
-                const item = items.find((item) => item.id == id);
-                callback(null, item);
-            }
-        });
-    }
-    //Update
-    updateItem(id, item, callback) {
-        this.getAll((err, items) => {
-            if (err) {
-                callback(err);
-            } else {
-                const itemUpdated = Object.assign(
-                    items.find((p) => p.id == id),
-                    item
-                );
-                this.saveChange(items, (err) =>
-                    err ? callback(err) : callback(null, itemUpdated)
-                );
-            }
-        });
-    }
-    // delete
-    borrarItem(id, callback) {
-        this.getAll((err, items) => {
-            if (err) {
-                callback(err);
-            } else {
-                this.saveChange(
-                    items.filter((p) => p.id != id),
-                    (err) => (err ? callback(err) : callback(null))
-                );
-            }
-        });
+        
+    async getAll() {
+        try {
+            const products = await fs.promises.readFile(this.pathArchivoDB, "utf-8");
+            return JSON.parse(products);
+        } catch (error) {
+            return [];
+        }
     }
 
-    saveChange(items, callback) {
-        return fs.writeFile(
-            this.pathArchivoDB,
-            JSON.stringify(items),
-            callback
-        );
+    async deleteById(numId) {
+        try {
+            const data = await this.getAll();
+            const productIndex = data.findIndex(item => item.id == numId);
+            if (productIndex >= 0) {
+                data.splice(productIndex, 1);
+                await fs.promises.writeFile(this.pathArchivoDB, JSON.stringify(data));
+                return `Producto con Id ${numId} eliminado`;
+            } else {
+                return false;
+            }
+        } catch (err) {
+            console.log("Error metodo deleteById() ", error);
+        }
     }
+
+    async updateById(productId, object) {
+        try {
+            const data = await this.getAll();
+            const productIndex = data.findIndex(item => item.id == productId);
+            if (productIndex >= 0) {
+                const updatedObject = await {
+                    ...object,
+                    id: productId
+                };
+                data[productIndex] = updatedObject;
+                await fs.promises.writeFile(this.pathArchivoDB, JSON.stringify(data));
+                return updatedObject;
+            } else {
+                return false;
+            }
+        } catch (error) {
+            console.log("Error metodo updateById() ", error);
+        }
+    }
+
 }
 
 module.exports = new ProductController();

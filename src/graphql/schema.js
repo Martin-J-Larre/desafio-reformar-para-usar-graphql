@@ -1,21 +1,28 @@
 const { buildSchema } = require("graphql");
 
-const schema = buildSchema(`
+let schema = buildSchema(`
     type Product {
-        id: Int,
-        name: String,
+        title: String
+        price: String
+        id: Int
+        stock: Int
+
+    }
+    type Query {
+        getAllProducts: [Product]
+    }
+    input InputProduct {
+        title: String
+        price: String
         stock: Int
     }
+
+    type Mutation {
+        addProduct(data: InputProduct): Product
+        deleteProduct(id: Int ): [Product]
+        updateProduct(id: Int, data: InputProduct): [Product]
+    }
     
-    type Query {
-        getProducts : [Product]
-        getProductById(id:Int) : Product
-    }
-    type Mutation { 
-        addProduct(name: String, stock: Int) : Product
-        modifyProduct(id: Int, name: String, stock: Int) : Product
-        deleteProduct(id: Int) : [Product]
-    }
-`);
+`)
 
 module.exports = { schema }
